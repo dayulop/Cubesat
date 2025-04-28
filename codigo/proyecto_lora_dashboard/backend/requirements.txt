@@ -1,0 +1,9 @@
+librerias: 
+flask
+pyserial
+flask-socketio
+
+formato de datos: 
+TEMP:24.7,HUM:60.2,LAT:-34.6,LON:-58.4,ALT:320,VEL:00.0
+
+

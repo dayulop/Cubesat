@@ -1,0 +1,157 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Lora</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Leaflet.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0 1rem;
+            background-color: #f2f2f2;
+        }
+        h1 {
+            text-align: center;
+        }
+        #map {
+            height: 300px;
+            margin: 1rem 0;
+        }
+        .datos {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .dato {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            min-width: 150px;
+        }
+        canvas {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌐 Dashboard LoRa</h1>
+
+    <div class="datos">
+        <div class="dato">🌡️ Temp: <span id="temp">--</span> °C</div>
+        <div class="dato">💧 Hum: <span id="hum">--</span> %</div>
+        <div class="dato">📍 Lat: <span id="lat">--</span></div>
+        <div class="dato">📍 Lon: <span id="lon">--</span></div>
+        <div class="dato">🛰️ Alt: <span id="alt">--</span> m</div>
+        <div class="dato">🚗 Vel: <span id="vel">--</span> km/h</div>
+    </div>
+
+    <div>
+        <canvas id="tempChart"></canvas>
+    </div>
+    <div>
+        <canvas id="humChart"></canvas>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        let tempData = [];
+        let humData = [];
+        let labels = [];
+
+        const tempChart = new Chart(document.getElementById("tempChart").getContext("2d"), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Temperatura (°C)',
+                    data: tempData,
+                    borderColor: 'red',
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { display: false }
+                }
+            }
+        });
+
+        const humChart = new Chart(document.getElementById("humChart").getContext("2d"), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Humedad (%)',
+                    data: humData,
+                    borderColor: 'blue',
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { display: false }
+                }
+            }
+        });
+
+        const map = L.map('map').setView([0, 0], 2);
+        const marker = L.marker([0, 0]).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        function actualizarDatos() {
+            fetch('/api/datos')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("temp").textContent = data.temperatura ?? "--";
+                    document.getElementById("hum").textContent = data.humedad ?? "--";
+                    document.getElementById("lat").textContent = data.latitud ?? "--";
+                    document.getElementById("lon").textContent = data.longitud ?? "--";
+                    document.getElementById("alt").textContent = data.altitud ?? "--";
+                    document.getElementById("vel").textContent = data.velocidad ?? "--";
+
+                    // actualizar gráfica
+                    const timestamp = new Date().toLocaleTimeString();
+                    if (data.temperatura) {
+                        tempData.push(data.temperatura);
+                        humData.push(data.humedad);
+                        labels.push(timestamp);
+                        if (tempData.length > 20) {
+                            tempData.shift();
+                            humData.shift();
+                            labels.shift();
+                        }
+                        tempChart.update();
+                        humChart.update();
+                    }
+
+                    // actualizar mapa
+                    if (data.latitud && data.longitud) {
+                        const lat = data.latitud;
+                        const lon = data.longitud;
+                        marker.setLatLng([lat, lon]);
+                        map.setView([lat, lon], 15);
+                    }
+                });
+        }
+
+        setInterval(actualizarDatos, 2000);
+    </script>
+</body>
+</html>

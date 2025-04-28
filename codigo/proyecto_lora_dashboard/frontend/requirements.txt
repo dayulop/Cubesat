@@ -1,0 +1,4 @@
+librerias: 
+chart.js
+leaflet.js
+fetch()
