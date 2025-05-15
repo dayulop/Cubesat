@@ -312,6 +312,7 @@ Makefile: ../segundo_programa/segundo_programa.pro C:/Qt/6.5.2/mingw_64/mkspecs/
 		C:/Qt/6.5.2/mingw_64/mkspecs/features/toolchain.prf \
 		C:/Qt/6.5.2/mingw_64/mkspecs/features/default_pre.prf \
 		C:/Qt/6.5.2/mingw_64/mkspecs/features/win32/default_pre.prf \
+		../segundo_programa/local_config.pri \
 		C:/Qt/6.5.2/mingw_64/mkspecs/features/resolve_config.prf \
 		C:/Qt/6.5.2/mingw_64/mkspecs/features/exclusive_builds_post.prf \
 		C:/Qt/6.5.2/mingw_64/mkspecs/features/default_post.prf \
@@ -333,6 +334,7 @@ Makefile: ../segundo_programa/segundo_programa.pro C:/Qt/6.5.2/mingw_64/mkspecs/
 		C:/Qt/6.5.2/mingw_64/mkspecs/features/yacc.prf \
 		C:/Qt/6.5.2/mingw_64/mkspecs/features/lex.prf \
 		../segundo_programa/segundo_programa.pro \
+		C:/Qt/6.5.2/mingw_64/lib/Qt6PrintSupport.prl \
 		C:/Qt/6.5.2/mingw_64/lib/Qt6Widgets.prl \
 		C:/Qt/6.5.2/mingw_64/lib/Qt6Gui.prl \
 		C:/Qt/6.5.2/mingw_64/lib/Qt6SerialPort.prl \
@@ -582,6 +584,7 @@ C:/Qt/6.5.2/mingw_64/mkspecs/features/exclusive_builds.prf:
 C:/Qt/6.5.2/mingw_64/mkspecs/features/toolchain.prf:
 C:/Qt/6.5.2/mingw_64/mkspecs/features/default_pre.prf:
 C:/Qt/6.5.2/mingw_64/mkspecs/features/win32/default_pre.prf:
+../segundo_programa/local_config.pri:
 C:/Qt/6.5.2/mingw_64/mkspecs/features/resolve_config.prf:
 C:/Qt/6.5.2/mingw_64/mkspecs/features/exclusive_builds_post.prf:
 C:/Qt/6.5.2/mingw_64/mkspecs/features/default_post.prf:
@@ -603,6 +606,7 @@ C:/Qt/6.5.2/mingw_64/mkspecs/features/exceptions.prf:
 C:/Qt/6.5.2/mingw_64/mkspecs/features/yacc.prf:
 C:/Qt/6.5.2/mingw_64/mkspecs/features/lex.prf:
 ../segundo_programa/segundo_programa.pro:
+C:/Qt/6.5.2/mingw_64/lib/Qt6PrintSupport.prl:
 C:/Qt/6.5.2/mingw_64/lib/Qt6Widgets.prl:
 C:/Qt/6.5.2/mingw_64/lib/Qt6Gui.prl:
 C:/Qt/6.5.2/mingw_64/lib/Qt6SerialPort.prl:
