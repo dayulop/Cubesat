@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "CS1176")(type "KiCad")(uri "E:/archivos/proyectos/Facultad/cubesat/Cubesat/descarga/SC1176")(options "")(descr ""))
+)
